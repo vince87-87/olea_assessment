@@ -1,0 +1,50 @@
+---
+- name: Install & Configure nginx
+  hosts: nginx
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Print my_variable
+      debug:
+        msg: "The value of my_variable is: {{ ansible_os_family }}"
+
+    - name: Update the repository cache and install/update package "nginx" to latest version (ubuntu)
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+      when: (ansible_os_family == "Debian")
+
+    - name: Update the repository cache and install/update package "nginx" to latest version (redhat)
+      yum:
+        name: nginx
+        state: latest
+        update_cache: yes
+      when: (ansible_os_family == "RedHat")
+
+    - name: Start and enable NGINX
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create & copy HTML file to /var/www/html folder
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Hello World</title>
+          </head>
+          <body>
+              <h1>Hello World!</h1>
+          </body>
+          </html>
+
+    - name: Reload NGINX to apply changes
+      systemd:
+        name: nginx
+        state: reloaded
+

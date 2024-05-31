@@ -18,7 +18,7 @@ locals {
       fromport          = 22
       toport            = 22
       protocol          = "tcp"
-      cidr_blocks       = ["111.65.46.108/32"]
+      cidr_blocks       = ["42.60.165.129/32"]
     }
   }
 
@@ -26,7 +26,6 @@ locals {
     nginx = {
       ami = data.aws_ami.ubuntu.id
       instance_type = "t2.micro"
-
     }
   }
 }
