@@ -19,5 +19,5 @@ create_SG_Cidr_Block = true
 vpc_id               = "vpc-046bab706f61eacde" #subnet-05c61b2602189aa90 subnet-07782a42434cb3815
 
 # ec2 instance
-create_instance = true
+create_instance    = true
 number_of_instance = 1
