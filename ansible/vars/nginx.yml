@@ -1,0 +1,4 @@
+---
+host_name: "ec2-13-212-245-208.ap-southeast-1.compute.amazonaws.com"
+website_url: "http://{{ host_name }}"  
+expected_content: "Hello World!" 

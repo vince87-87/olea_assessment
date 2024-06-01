@@ -5,9 +5,9 @@
   gather_facts: true
 
   tasks:
-    - name: Print my_variable
-      debug:
-        msg: "The value of my_variable is: {{ ansible_os_family }}"
+    - name: "Load variables from vars directory"
+      include_vars:
+        dir: "vars"
 
     - name: Update the repository cache and install/update package "nginx" to latest version (ubuntu)
       apt:
@@ -48,3 +48,19 @@
         name: nginx
         state: reloaded
 
+    - name: Verify website is accessible and showing correct content
+      uri:
+        url: "{{ website_url }}"
+        return_content: yes
+      register: website_response
+
+    - name: Debug website response
+      debug:
+        var: website_response.content
+
+    - name: Check if the website content is correct
+      assert:
+        that:
+          - "'{{ expected_content }}' in website_response.content"
+        fail_msg: "The website content is not as expected!"
+        success_msg: "The website content is correct!"
