@@ -18,7 +18,7 @@ locals {
       fromport    = 22
       toport      = 22
       protocol    = "tcp"
-      cidr_blocks = ["42.60.165.129/32"]
+      cidr_blocks = ["49.245.3.198/32"]
     }
   }
 
